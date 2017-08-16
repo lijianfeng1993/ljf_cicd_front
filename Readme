@@ -1,0 +1,10 @@
+Usage:
+	#这个web程序后台连接CICD_REST2，需要先启动CICD_REST2提供rest api，否则该程序无法运行
+	home:  http://10.132.47.15:4502/home
+
+	提供如下功能：
+		创建任务
+		构建任务
+		删除任务
+		获取sonar分析报告
+		获取任务构建日志
