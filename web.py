@@ -24,10 +24,14 @@ def home():
 
 @app.route('/createjob')
 def createjob():
-	return template('createjob')
+	return template('createjobselect')
 
-@app.route('/do_createjob',method='POST')
-def do_createjob():
+@app.route('/create_cicdjob')
+def create_cicdjob():
+	return template('create_cicdjob')
+
+@app.route('/do_create_cicdjob',method='POST')
+def do_create_cicdjob():
 	jobname = request.forms.get('jobname')
 	language = request.forms.get('language')
 	url = request.forms.get('url')
@@ -39,7 +43,41 @@ def do_createjob():
 	req = urllib2.Request(url = requesturl,data =json.dumps(post_data), headers=headers)
 	res_data = urllib2.urlopen(req)
 	res = res_data.read()
-	return template('createjobresult',tjobname = jobname, tresult = res)
+	return template('create_cicdjobresult',tjobname = jobname, tresult = res)
+
+@app.route('/create_enginejob')
+def create_enginejob():
+	return template('create_enginejob')
+
+@app.route('/do_create_enginejob',method  = 'POST')
+def do_create_enginejob():
+	jobname = request.forms.get('jobname')
+	language = request.forms.get('language')
+	path = request.forms.get('path')
+	requesturl = "http://10.132.47.15:8888/v1/createjenkinsjob"
+	post_data = {"Jobname":jobname,"Language":language,"Path":path}
+	headers = {'Content-Type': 'application/json'}
+	req = urllib2.Request(url = requesturl,data =json.dumps(post_data), headers=headers)
+	res_data = urllib2.urlopen(req)
+	res = res_data.read()
+	return template('create_enginejobresult',tjobname = jobname, tresult = res)
+
+@app.route('/create_sonarjob')
+def create_sonarjob():
+	return template('create_sonarjob')
+
+@app.route('/do_create_sonarjob',method  = 'POST')
+def do_create_sonarjob():
+	jobname = request.forms.get('jobname')
+	language = request.forms.get('language')
+	url = request.forms.get('url')
+	requesturl = "http://10.132.47.15:8888/v3/createjenkinsjob"
+	post_data = {"Jobname":jobname,"Language":language,"Url":url}
+	headers = {'Content-Type': 'application/json'}
+	req = urllib2.Request(url = requesturl,data =json.dumps(post_data), headers=headers)
+	res_data = urllib2.urlopen(req)
+	res = res_data.read()
+	return template('create_sonarjobresult',tjobname = jobname, tresult = res)
 
 @app.route('/buildjob')
 def buildjob():
